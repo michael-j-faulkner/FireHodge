@@ -1,11 +1,10 @@
-#include "GameLogic.h"
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 #include <array>
 #include <cmath>
 #include <ctime>
 #include <random>
 #include <vector>
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 // Must be an odd number
 constexpr int board_size{ 3 };
@@ -27,9 +26,7 @@ public:
 
     Fireball(Side side, const sf::Texture& texture, int speed)
         : side{ side }, sprite{ texture }, speed{ speed }
-    {
-        
-    }
+    {}
 
     Side side;
     sf::Time wait{ sf::seconds(base_wait) };
@@ -67,7 +64,7 @@ int main()
     }
 
     std::mt19937 twister{ static_cast<std::mt19937::result_type>(std::time(nullptr)) };
-    std::uniform_int_distribution randomizer(1, board_size);
+    std::uniform_int_distribution<int> randomizer(1, board_size);
 
     // Load in the fireballs
     sf::Texture fireball_texture;
@@ -135,7 +132,7 @@ int main()
                     window.close();
                     return 0;
                     break;
-                    // Handle movement
+                // Handle movement
                 case sf::Event::KeyPressed:
                     if (event.key.code == sf::Keyboard::Space)
                     {
@@ -190,8 +187,7 @@ int main()
                 case sf::Event::Closed:
                     window.close();
                     return 0;
-                    break;
-                    // Handle movement
+                // Handle movement
                 case sf::Event::KeyPressed:
                     switch (event.key.code)
                     {
@@ -264,7 +260,7 @@ int main()
                     }
                 }
 
-                std::uniform_real_distribution random_multiplier{ 0.5f, 3.0f };
+                std::uniform_real_distribution<float> random_multiplier{ 0.5f, 3.0f };
 
                 if (f.side == Fireball::Side::Top && f.sprite.getPosition().y > window_size)
                 {
